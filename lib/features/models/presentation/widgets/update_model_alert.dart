@@ -7,7 +7,8 @@ import '../../data/models/model_model.dart';
 import '../blocs/update_model/update_model_cubit.dart';
 
 class UpdateModelAlert extends StatefulWidget {
-  const UpdateModelAlert({Key?key, required this.model, required this.onSuccess}):super(key: key);
+  const UpdateModelAlert({Key? key, required this.model, required this.onSuccess})
+      : super(key: key);
 
   final ModelModel model;
   final Function() onSuccess;
@@ -64,6 +65,7 @@ class _UpdateModelAlertState extends State<UpdateModelAlert> {
                         onPressed: () async {
                           context.read<UpdateModelCubit>().updateModel(ModelModel(
                               name: name,
+                              storageOptions: widget.model.modelOptions,
                               docId: widget.model.docId,
                               brandID: widget.model.brandID,
                               id: widget.model.docId));

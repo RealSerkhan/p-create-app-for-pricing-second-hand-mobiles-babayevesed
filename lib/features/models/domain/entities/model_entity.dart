@@ -1,21 +1,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:telefonchu/features/brands/data/models/brand.dart';
+import 'package:telefonchu/features/models/domain/entities/option_entity.dart';
+import 'package:telefonchu/features/models/domain/entities/price_entity.dart';
 
 class Model extends Equatable {
   final String? name;
   final String? id;
   final String? brandID;
   final String? docId;
-  final BrandModel? brand;
-  // final CollectionReference? brandReference;
+
+  final List<ModelOption>? modelOptions;
+  final Price? price;
+
   const Model({
     this.name,
     this.id,
     this.brandID,
     this.docId,
-    this.brand,
+    this.price,
+    this.modelOptions,
   });
 
   @override
-  List<Object?> get props => [name, id, brandID, brand, docId];
+  List<Object?> get props => [name, id, brandID, modelOptions, brand, docId];
 }

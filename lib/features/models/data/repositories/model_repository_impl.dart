@@ -22,7 +22,7 @@ class ModelsRepositoryImpl extends ModelsRepository {
   Future<Either<Failure, ModelModel>> addModel(ModelModel model) async {
     try {
       final data = await dataSource.addModel(model.toMap()
-        ..addAll({"brand_reference": FirebaseFirestore.instance.collection('/brand/apple').path}));
+        ..addAll({"brand": FirebaseFirestore.instance.collection('brand').doc('samsung')}));
       return Right(data);
     } catch (e) {
       return Left(UnknownFailure(errorMessage: e.toString()));
@@ -43,6 +43,16 @@ class ModelsRepositoryImpl extends ModelsRepository {
   Future<Either<Failure, ModelModel>> update(ModelModel model) async {
     try {
       final data = await dataSource.update(model);
+      return Right(data);
+    } catch (e) {
+      return Left(UnknownFailure(errorMessage: e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, ModelModel>> getModel(String docID) async {
+    try {
+      final data = await dataSource.loadModel(docID);
       return Right(data);
     } catch (e) {
       return Left(UnknownFailure(errorMessage: e.toString()));

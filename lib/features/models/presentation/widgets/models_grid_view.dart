@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telefonchu/features/models/presentation/blocs/loads_models/models_cubit.dart';
 import 'package:telefonchu/features/models/presentation/widgets/delete_model_alert.dart';
 import 'package:telefonchu/features/models/presentation/widgets/update_model_alert.dart';
+import 'package:telefonchu/pages/storage_options/storage_options_page.dart';
 import 'package:telefonchu/shared/helpers/custom_snackbar.dart';
 import 'package:telefonchu/shared/widgets/category_widget.dart';
 
 class ModelsGridView extends StatelessWidget {
-  const ModelsGridView({Key? key, required this.brandID}):super(key: key);
+  const ModelsGridView({Key? key, required this.brandID}) : super(key: key);
   final String brandID;
 
   @override
@@ -29,7 +30,10 @@ class ModelsGridView extends StatelessWidget {
             return CategoryWidget(
               name: model.name ?? 'Adsiz',
               isAdmin: true,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(StorageOptionsPage.routeName, arguments: {'model_id': model.id});
+              },
               onEdit: () {
                 UpdateModelAlert(
                   model: model,

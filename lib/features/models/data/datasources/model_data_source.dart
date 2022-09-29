@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:telefonchu/features/models/data/models/model_model.dart';
 
-
-
 abstract class ModelsDataSource {
   Future<List<ModelModel>> loadModels(String brandID);
   Future<ModelModel> addModel(Map<String, dynamic> modelJson);
   Future<ModelModel> update(ModelModel model);
+  Future<ModelModel> loadModel(String docID);
   Future<void> removeModel(String docID);
 }
 
@@ -22,10 +21,7 @@ class ModelsDataSourceImpl extends ModelsDataSource {
 
   @override
   Future<ModelModel> addModel(Map<String, dynamic> modelJson) async {
-
-    
-    final data =
-        await firestore.collection('model').add(modelJson);
+    final data = await firestore.collection('model').add(modelJson);
 
     return ModelModel.fromMap((await data.get()).data()!);
   }
@@ -42,5 +38,12 @@ class ModelsDataSourceImpl extends ModelsDataSource {
     await firestore.collection('model').doc(model.docId).update(model.toMap());
 
     return model;
+  }
+
+  @override
+  Future<ModelModel> loadModel(String docID) async {
+    final data = await firestore.collection('model').doc(docID).get();
+
+    return ModelModel.fromSnapshot(data);
   }
 }

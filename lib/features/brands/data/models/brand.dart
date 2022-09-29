@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:telefonchu/features/brands/domain/entities/brand_entity.dart';
 
 class BrandModel extends Brand {
@@ -38,3 +39,6 @@ class BrandModel extends Brand {
   @override
   List<Object?> get props => [name, id];
 }
+
+@Collection<BrandModel>('brand')
+final brand = FirebaseFirestore.instance.collection('brand');

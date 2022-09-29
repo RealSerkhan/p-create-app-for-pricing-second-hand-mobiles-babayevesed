@@ -15,6 +15,7 @@ class BrandsDataSourceImpl extends BrandsDataSource {
   @override
   Future<List<Brand>> loadBrands() async {
     final data = await firestore.collection('brand').get();
+    
 
     return data.docs.map((e) => BrandModel.fromSnapshot(e)).toList();
   }

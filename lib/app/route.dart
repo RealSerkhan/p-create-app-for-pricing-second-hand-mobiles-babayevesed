@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:telefonchu/pages/models_page/models_page.dart';
+import 'package:telefonchu/pages/storage_options/storage_options_page.dart';
 
 import '../pages/home_page/home_page.dart';
 
@@ -13,6 +14,10 @@ class AppRoute {
       case ModelsPage.routeName:
         return MaterialPageRoute(
             builder: (context) => ModelsPage(brandID: (args as Map)["brand_id"] as String),
+            settings: settings);
+      case StorageOptionsPage.routeName:
+        return MaterialPageRoute(
+            builder: (context) => StorageOptionsPage(modelID: (args as Map)["model_id"] as String),
             settings: settings);
       default:
         MaterialPageRoute(

@@ -1,47 +1,49 @@
-// import 'dart:convert';
-// import 'package:cloud_firestore_odm/annotation.dart';
-// import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:telefonchu/features/brands/data/models/brand.dart';
+import 'package:cloud_firestore_odm/annotation.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:telefonchu/features/models/domain/entities/model_entity.dart';
 
-// part 'model_model.g.dart';
-
-// @JsonSerializable()
 class ModelModel extends Model {
   const ModelModel({
     super.name,
     super.id,
     super.brandID,
     super.docId,
-    super.brand,
+    super.modelOptions,
   });
   factory ModelModel.fromMap(Map<String, dynamic> map) {
     return ModelModel(
-      name: map['name'],
-      id: map['id'],
-      brandID: map['brand_id'],
-      brand: map['brand'] == null ? null : BrandModel.fromMap(map['brand']),
-    );
+        name: map['name'],
+        id: map['id'],
+        brandID: map['brand_id'],
+        modelOptions: map['storage_options']);
   }
   factory ModelModel.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return ModelModel(
       name: data['name'],
       id: data['id'],
+      modelOptions: data['storage_options'],
       brandID: data['brand_id'],
       docId: doc.id,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {'name': name, 'id': id, 'brand_id': brandID};
+    return {
+      'name': name,
+      'id': id,
+      'storage_options': modelOptions,
+      'brand_id': brandID,
+    };
   }
 
-  // String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-  // factory ModelModel.fromJson(String source) => ModelModel.fromMap(json.decode(source));
+  factory ModelModel.fromJson(String source) => ModelModel.fromMap(json.decode(source));
 }
 
-// @Collection<ModelModel>('model')
-// final modelRef = ModelModelCollectionReference();
+@Collection<ModelModel>('model')
+final modelRef = FirebaseFirestore.instance.collection('model');

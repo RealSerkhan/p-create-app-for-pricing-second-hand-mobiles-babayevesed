@@ -20,8 +20,10 @@ import 'package:telefonchu/features/models/presentation/blocs/add_model/add_mode
 import 'package:telefonchu/features/models/presentation/blocs/loads_models/models_cubit.dart';
 
 import 'features/brands/domain/use_cases/delete_brand_use_case.dart';
+import 'features/models/domain/use_cases/load_model_use_case.dart';
 import 'features/models/domain/use_cases/update_model_use_case.dart';
 import 'features/models/presentation/blocs/delete_model/delete_model_cubit.dart';
+import 'features/models/presentation/blocs/model/model_cubit.dart';
 import 'features/models/presentation/blocs/update_model/update_model_cubit.dart';
 
 final di = GetIt.instance;
@@ -36,6 +38,7 @@ Future<void> initDI() async {
   di.registerFactory(() => AddModelCubit(di()));
   di.registerFactory(() => UpdateModelCubit(di()));
   di.registerFactory(() => DeleteModelCubit(di()));
+  di.registerFactory(() => ModelCubit(di()));
 
   //* Use cases
   di.registerLazySingleton(() => LoadBrandsUseCase(di()));
@@ -46,6 +49,7 @@ Future<void> initDI() async {
   di.registerLazySingleton(() => AddModelUseCase(di()));
   di.registerLazySingleton(() => UpdateModelUseCase(di()));
   di.registerLazySingleton(() => DeleteModelUseCase(di()));
+  di.registerLazySingleton(() => LoadModelUseCase(di()));
 
   //* Repositories
   di.registerLazySingleton<BrandRepository>(() => BrandsRepositoryImpl(di()));
